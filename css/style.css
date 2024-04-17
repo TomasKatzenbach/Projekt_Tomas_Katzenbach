@@ -1,0 +1,144 @@
+body {
+    padding-top: 70px;
+  }
+.carousel-item img {
+    border-radius: 15px;
+    height: 400px;
+    object-fit: cover;
+  }
+#myCarousel {
+    max-width: 1115px;
+    margin: 0 auto;
+  }
+  
+.social-icons a i {
+    color: rgb(84, 84, 84);
+    transition: scale 0.3s ease-in-out;
+  }
+.social-icons a i:hover{
+    scale: 1.3;
+  }
+.custom-jumbotron {
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    max-width: 1115px;
+    margin-top: 35px;
+}
+.about-section {
+    padding: 40px 0;
+    background-color: rgb(235, 235, 235);
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 1115px;
+    margin: 30px auto;
+  }
+.google-map {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+.navbar {
+    background-color: rgba(0, 0, 0, 0.8);
+    min-height: 70px;
+    border-radius: 15px;
+    max-width: 1300px;
+    margin: 0 auto;
+    margin-top: 10px;
+    backdrop-filter: blur(10px);
+  }  
+.nav-link{
+  color: white;
+  transition: scale 0.3s ease-in-out;
+}
+.nav-link:hover{
+  scale: 1.1;
+  color: rgb(255, 20, 20);
+
+}
+.navbar-brand{
+  color: white;
+  transition: scale 0.3s ease-in-out;
+}
+.navbar-brand:hover{
+  scale: 1.1;
+  color: rgb(255, 20, 20);
+}
+.container{
+  background-color: rgb(235, 235, 235);
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  max-width: 1115px;
+  margin-top: 35px; 
+}
+.btn-primary {
+  background-color: white;
+  border-color: #000000;
+  color: black
+
+}
+.btn-primary:hover {
+  color: white;
+  background-color: rgb(255, 20, 20);
+  border-color: white;
+  scale: 1.1;
+  transition: 0.3s ease-in-out;
+}
+.fab.fa-facebook-f {
+  color: #3b5998; /* Farba pre Facebook ikonu */
+}
+
+.fab.fa-twitter {
+  color: #1da1f2; /* Farba pre Twitter ikonu */
+}
+
+.fab.fa-instagram {
+  color: #e4405f; /* Farba pre Instagram ikonu */
+}
+#cookieConsent {
+  background-color: rgba(0, 0, 0, 0.8);
+  max-width: 800px;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 15px;
+  margin: 10px auto;
+  display:none;
+  backdrop-filter: blur(10px);
+}
+#cookieConsent button {
+  background-color: rgb(255, 83, 83);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  margin-left: 15px;
+}
+#cookieConsent button:hover{
+  background-color: rgb(255, 20, 20);
+  transition: 0.3s ease-in-out;
+  scale: 1.1  ;
+}
+.thanks{
+  margin-top: 250px;
+  margin-bottom: 300px;
+}
+
+.envelope{
+  width: auto;
+  height: 100px;
+  margin-bottom: 50px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid black;
+  color: #333;
+  background-color: #333;
+  height: 1px;
+  width: 50%;
+}
