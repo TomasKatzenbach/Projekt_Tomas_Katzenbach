@@ -9,16 +9,19 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="index.html">Domov</a>
+        <a class="nav-link" href="index.php">Domov</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="produkty.html">Produkty</a>
+        <a class="nav-link" href="produkty.php">Produkty</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="o-nas.html">O nás</a>
+        <a class="nav-link" href="o-nas.php">O nás</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="kontakt.html">Kontakt</a>
+        <a class="nav-link" href="kontakt.php">Kontakt</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"><?php echo $_SESSION["role"]; ?></a>
       </li>
     </ul>
   </div>
