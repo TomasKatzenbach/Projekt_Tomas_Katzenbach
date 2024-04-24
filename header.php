@@ -21,8 +21,15 @@
         <a class="nav-link" href="kontakt.php">Kontakt</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"><?php echo $_SESSION["role"]; ?></a>
+        <?php if (isset($_SESSION["user_id"]) && isset($_SESSION["role"])): ?>
+          <a class="nav-link"><?php echo $_SESSION["role"]; ?></a>
+        <?php endif; ?>
       </li>
+      <?php if (isset($_SESSION["user_id"]) && isset($_SESSION["role"])): ?>
+      <li class="nav-item">
+        <a class="nav-link" href="logout.php">Logout</a>
+      </li>
+      <?php endif; ?>
     </ul>
   </div>
 </nav>
