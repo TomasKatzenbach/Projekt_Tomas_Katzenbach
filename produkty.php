@@ -1,3 +1,53 @@
+<?php
+session_start();
+require_once("DB/db.php");
+require_once("DB/classes.php");
+include_once "header.php";
+
+if (isset($_POST['submit'])) {
+  $nazov = $_POST['nazov'];
+  $popis = $_POST['popis'];
+  $cena = $_POST['cena'];
+  $obrazok = $_POST['obrazok'];
+
+  $product = new Crud($pdo);
+  $product->create($nazov, $popis, $cena, $obrazok);
+
+
+  header("Location: produkty.php");
+  exit;
+}
+
+
+if (isset($_POST["edit"])) {
+  $id = $_POST["id"];
+  $nazov = $_POST["nazov"];
+  $popis = $_POST["popis"];
+  $cena = $_POST["cena"];
+  $obrazok = null;
+
+
+  if (isset($_FILES['obrazok']) && $_FILES['obrazok']['error'] == 0) {
+    $upload_dir = 'img/';
+    $filename = basename($_FILES['obrazok']['name']);
+    $target_file = $upload_dir . $filename;
+
+
+    if (move_uploaded_file($_FILES['obrazok']['tmp_name'], $target_file)) {
+        $obrazok = $target_file;
+    }
+  }
+
+  $product = new Crud($pdo);
+  $product->update($id, $nazov, $popis, $cena, $obrazok);
+
+
+  header("Location: produkty.php");
+  exit;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,36 +56,10 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <title>Produkty</title>
 </head>
 <body>
-  <header>
-    <!-- Navigačná lišta -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-      <a class="navbar-brand" href="index.html">CodeOcean</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon">
-          <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
-      </span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">Domov</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="produkty.php">Produkty</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="o-nas.php">O nás</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="kontakt.php">Kontakt</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    </header>
 <main>
   <section>
     <!-- Hlavička stránky -->
@@ -51,68 +75,111 @@
       </header>
     </div>
   </section>
-  <section>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Ľavá strana - Fotka produktu -->
-                <img src="img/produkt1.jpg" alt="Product Image" class="img-fluid" style="width: 100%; height: auto;">
+<?php
+if(isset($_SESSION['role']) && ($_SESSION['role'] == 'Admin')) {
+  echo '<a href="#" class="btn btn-primary position-fixed d-flex align-items-center justify-content-center" data-toggle="modal" data-target="#myModal" style="bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 30px; border-radius: 15px;"><i class="fas fa-plus"></i></a>';
+}
+?>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vložiť produkt</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="col-md-6 d-flex flex-column">
-                <!-- Pravá strana - Popis produktu -->
-                <h2>Úprava webstránky</h2>
-                <p>
-                  Naša služba úpravy webovej stránky je navrhnutá pre tých, ktorí už majú existujúcu webovú stránku, 
-                  ale hľadajú možnosti na zlepšenie a prispôsobenie podľa svojich špecifických požiadaviek. 
-                  S naším balíkom úpravy webovej stránky máte možnosť transformovať váš online priestor presne podľa vašich predstáv.
-                </p>
-                <!-- Zoznam s odrazkami pre ponuku produktu -->
-                <ul>
-                    <li>Individualizované Prispôsobenia: Naši odborníci v oblasti webového dizajnu a vývoja pracujú s vami na identifikácii a implementácii individualizovaných prispôsobení pre vašu webovú stránku.</li>
-                    <li>Optimalizácia Pre Používateľskú Skúsenosť: Zabezpečujeme, aby vaša webová stránka poskytovala optimálnu používateľskú skúsenosť (UX), čím zlepšuje interakcie a zadržiava návštevníkov na vašom webe.</li>
-                    <li>Rýchlejšie Načítanie: Optimalizujeme kód a zdroje pre rýchlejšie načítanie stránok, čo prispieva k lepšiemu hodnoteniu vyhľadávačov a celkovej spokojnosti návštevníkov.</li>
-                    <li>Integrácia Nových Funkcií: Ak máte nové požiadavky alebo funkcie, radi ich integrujeme do vášho existujúceho webového prostredia.</li>
-                    <li>Rady a Odborné Odporúčania: Poskytujeme odborné rady a odporúčania pre zlepšenie viditeľnosti a efektívnosti vášej webovej stránky.</li>
-                </ul>
-                <!-- Tlačidlo pre presmerovanie na kontakt.html -->
-                <a href="kontakt.html" class="btn btn-primary mt-auto align-self-end">Kontaktujte nás</a>
+            <div class="modal-body">
+              <form action="produkty.php" method="post">
+                <div class="form-group">
+                  <label for="nazov">Názov</label>
+                  <input type="text" class="form-control" id="nazov" name="nazov" >
+                </div>
+                <div class="form-group">
+                  <label for="popis">Popis</label>
+                  <textarea class="form-control" id="popis" name="popis" ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="cena">Cena</label>
+                  <input type="number" class="form-control" id="cena" name="cena" >
+                </div>
+                <div class="form-group">
+                  <label for="obrazok">Obrázok</label>
+                  <input type="file" class="form-control" id="obrazok" name="obrazok" >
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Zrušiť</button>
+                  <button type="submit" class="btn btn-primary" name="submit">Vytvoriť</button>
+                </div>
+              </form>
             </div>
         </div>
     </div>
-</section>
+</div>
 
 
-
-<section>
-  <div class="container">
-      <div class="row">
-          <div class="col-md-6">
-              <!-- Ľavá strana - Fotka produktu -->
-              <img src="img/produkt2.png" alt="Product Image" class="img-fluid" style="width: 100%; height: auto;">
-          </div>
-          <div class="col-md-6 d-flex flex-column">
-              <!-- Pravá strana - Popis produktu -->
-              <h2>Webstránka "Na Mieru"</h2>
-              <p>
-                Vaša online prítomnosť je vizitkou vášho podnikania. S naším balíkom Webstránka 
-                "Na Mieru" vytvoríme pre vás unikátnu webovú stránku od základu, plne prispôsobenú vašim potrebám a cieľom. 
-                Naša odborná a kreatívna skupina vývojárov a dizajnérov bude pracovať s vámi na vytvorení stránky, 
-                ktorá nielenže osloví vašu cieľovú skupinu, ale aj odzrkadlí jedinečnosť vášho podnikania.
-              </p>
-              <!-- Zoznam s odrazkami pre ponuku produktu -->
-              <ul>
-                  <li>Šitá na Mieru: Každá webová stránka, ktorú vytvárame, je navrhnutá špeciálne pre vás. Zohľadňujeme váš brand, farby, a štýl, aby ste vytvorili jedinečný dojem.</li>
-                  <li>Funkčné Prispôsobenia: Nech už potrebujete rezervačný systém, e-commerce funkcionalitu alebo akékoľvek iné špecifické požiadavky, prispôsobíme funkcionalitu webovej stránky podľa vašich potrieb.</li>
-                  <li>Optimalizácia pre Vyhľadávače (SEO): Zabezpečíme, aby vaša stránka bola optimalizovaná pre vyhľadávače, čo zlepší jej pozíciu v organických výsledkoch vyhľadávania.</li>
-                  <li>Mobilná Responzívnosť: Vaša webová stránka bude optimalizovaná pre mobilné zariadenia, aby bola prístupná a atraktívna pre návštevníkov zo všetkých typov zariadení.</li>
-                  <li>Podpora a Údržba: Po uvedení stránky do prevádzky nekončí naša podpora. Poskytujeme aj služby údržby a podpory pre plynulý chod vášho online priestoru.</li>
-              </ul>
-              <!-- Tlačidlo pre presmerovanie na kontakt.html -->
-              <a href="kontakt.html" class="btn btn-primary mt-auto align-self-end">Kontaktujte nás</a>
-          </div>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Upraviť produkt</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" id="editId" name="id">
+          <div class="form-group">
+            <label for="editNazov">Nazov</label>
+            <input type="text" class="form-control" id="editNazov" name="nazov" >
+          </div>
+          <div class="form-group">
+            <label for="editPopis">Popis</label>
+            <textarea class="form-control" id="editPopis" name="popis" ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="editCena">Cena</label>
+            <input type="number" class="form-control" id="editCena" name="cena" >
+          </div>
+          <div class="form-group">
+            <label for="editObrazok">Obrazok</label>
+            <input type="file" class="form-control" id="editObrazok" name="obrazok" >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zrušiť</button>
+          <button type="submit" class="btn btn-primary" name="edit">Uložiť</button>
+        </div>
+      </form>
+    </div>
   </div>
-</section>
+</div>
+
+<?php
+
+$product=new Crud($pdo);
+$product->read();
+
+?>
+
+<script>
+$(document).ready(function() {
+    $('.edit').on('click', function() {
+      var id = $(this).data('id');
+      var nazov = $(this).data('nazov');
+      var popis = $(this).data('popis');
+      var cena = $(this).data('cena');
+      var obrazok = $(this).data('obrazok');
+  
+      $('#editId').val(id);
+      $('#editNazov').val(nazov);
+      $('#editPopis').val(popis);
+      $('#editCena').val(cena);
+    });
+  });
+</script>
 
 <section>
   <!------Cookies------>
@@ -121,46 +188,7 @@
     <button onclick="acceptCookies()">Súhlasím</button>
 </div>
 </section>
-
-
 </main>
-<footer class="text-dark text-center">
-  <div class="container d-md-flex justify-content-md-between">
-    <!-- Prvý stĺpec - autorské práva -->
-    <div class="mb-3">
-      <p class="mb-0">&copy; 2023 CodeOcean.</p>
-      <p>Všetky práva vyhradené.</p>
-    </div>
-    
-    <!-- Stredný stĺpec - sociálne siete a ikony -->
-    <div class="text-center"> <!-- Pridaná trieda text-center -->
-      <p>Sociálne Siete</p>
-      <ul class="list-inline social-icons">
-        <li class="list-inline-item mx-2">
-          <a href="https://www.facebook.com/tomas.katzenbach" target="_blank">
-            <i class="fab fa-facebook-f fa-2x"></i>
-          </a>
-        </li>
-        <li class="list-inline-item mx-2">
-          <a href="https://twitter.com/tomikaas1" target="_blank">
-            <i class="fab fa-twitter fa-2x"></i>
-          </a>
-        </li>
-        <li class="list-inline-item mx-2">
-          <a href="https://www.instagram.com/tomaash.wav/" target="_blank">
-            <i class="fab fa-instagram fa-2x"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-    
-    <!-- Pravý stĺpec - mailto a telefón -->
-    <div class="mb-3">
-      <p class="mb-0">Email: <a href="mailto:tomaash69@gmail.com">codeocean@codeocean.com</a></p>
-      <p class="mb-0">Tel: +421 944 645 429</p>
-    </div>
-  </div>
-</footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
