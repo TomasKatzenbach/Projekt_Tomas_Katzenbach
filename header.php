@@ -1,6 +1,6 @@
 <header>
 <nav class="navbar navbar-expand-lg fixed-top">
-  <a class="navbar-brand" href="index.html">CodeOcean</a>
+  <a class="navbar-brand" href="index.php">CodeOcean</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon">
       <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
@@ -20,6 +20,11 @@
       <li class="nav-item">
         <a class="nav-link" href="kontakt.php">Kontakt</a>
       </li>
+      <?php if (!isset($_SESSION["user_id"]) && !isset($_SESSION["role"])): ?>
+      <li class="nav-item">
+        <a class="nav-link" href="login.php">Prihlásenie</a>
+      </li>
+      <?php endif; ?>
       <li class="nav-item">
         <?php if (isset($_SESSION["user_id"]) && isset($_SESSION["role"])): ?>
           <a class="nav-link"><?php echo $_SESSION["role"]; ?></a>
@@ -27,7 +32,7 @@
       </li>
       <?php if (isset($_SESSION["user_id"]) && isset($_SESSION["role"])): ?>
       <li class="nav-item">
-        <a class="nav-link" href="logout.php">Logout</a>
+        <a class="nav-link" href="logout.php">Odhlásenie</a>
       </li>
       <?php endif; ?>
     </ul>
