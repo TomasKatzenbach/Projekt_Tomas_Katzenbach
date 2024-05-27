@@ -1,4 +1,5 @@
 <?php
+
  session_start();
  require_once("DB/db.php");
  require_once("DB/classes.php");
@@ -32,8 +33,10 @@
         <label for="password">Heslo:</label>
         <input type="password" id="password" name="Heslo" required>
         <input type="submit" value="Prihlásiť sa" name="submit">
+        <p>Nemáte účet? <a href="register.php">Registrujte sa!</a></p>
     </form>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
