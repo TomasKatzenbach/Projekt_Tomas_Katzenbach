@@ -1,3 +1,9 @@
+<?php
+ session_start();
+ require_once("DB/db.php");
+ require_once("DB/classes.php");
+ include_once "header.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,33 +17,6 @@
       </head>
 </head>
 <body>
-  <header>
-    <!-- Navigačná lišta -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-      <a class="navbar-brand" href="index.html">CodeOcean</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon">
-          <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
-      </span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Domov</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="produkty.html">Produkty</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="o-nas.html">O nás</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="kontakt.html">Kontakt</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    </header>
 <main>
   <!-- Hlavička stránky -->
   <div class="container">
@@ -137,43 +116,6 @@
       </div>
       </section>
 </main>
-<footer class="text-dark text-center">
-  <div class="container d-md-flex justify-content-md-between">
-    <!-- Prvý stĺpec - autorské práva -->
-    <div class="mb-3">
-      <p class="mb-0">&copy; 2023 CodeOcean.</p>
-      <p>Všetky práva vyhradené.</p>
-    </div>
-    
-    <!-- Stredný stĺpec - sociálne siete a ikony -->
-    <div class="text-center">
-      <p>Sociálne Siete</p>
-      <ul class="list-inline social-icons">
-        <li class="list-inline-item mx-2">
-          <a href="https://www.facebook.com/tomas.katzenbach" target="_blank">
-            <i class="fab fa-facebook-f fa-2x"></i>
-          </a>
-        </li>
-        <li class="list-inline-item mx-2">
-          <a href="https://twitter.com/tomikaas1" target="_blank">
-            <i class="fab fa-twitter fa-2x"></i>
-          </a>
-        </li>
-        <li class="list-inline-item mx-2">
-          <a href="https://www.instagram.com/tomaash.wav/" target="_blank">
-            <i class="fab fa-instagram fa-2x"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-    
-    <!-- Pravý stĺpec - mailto a telefón -->
-    <div class="mb-3">
-      <p class="mb-0">Email: <a href="mailto:tomaash69@gmail.com">codeocean@codeocean.com</a></p>
-      <p class="mb-0">Tel: +421 944 645 429</p>
-    </div>
-  </div>
-</footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
