@@ -8,4 +8,7 @@ window.onload = function() {
   function acceptCookies() {
     localStorage.setItem('cookieSeen', 'true');
     document.getElementById('cookieConsent').style.display = 'none';
+
   }
+
+  

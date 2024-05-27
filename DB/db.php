@@ -1,9 +1,9 @@
 <?php
 
-$host = 'localhost'; // Replace with your database host
-$dbName = 'sj_projekt'; // Replace with your database name
-$username = 'root'; // Replace with your database username
-$password = ''; // Replace with your database password
+$host = 'localhost';
+$dbName = 'sj_projekt';
+$username = 'root';
+$password = '';
 
 try {
     $dsn = "mysql:host=$host;dbname=$dbName";
