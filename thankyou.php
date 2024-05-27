@@ -15,7 +15,7 @@
                         <img class="envelope" src="img/valid.png">
                         <h1 class="display-1">Ďakujeme za Vašu správu!</h1>
                         <p class="lead">Vaša správa bola úspešne odoslaná. V najbližšej dobe Vás budeme kontaktovať.</p>
-                        <a href="index.html" class="btn btn-main">Späť na domovskú stránku</a>
+                        <a href="index.php" class="btn btn-main">Späť na domovskú stránku</a>
                     </div>
                 </div>
             </div>
