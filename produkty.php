@@ -8,15 +8,26 @@ if (isset($_POST['submit'])) {
   $nazov = $_POST['nazov'];
   $popis = $_POST['popis'];
   $cena = $_POST['cena'];
-  $obrazok = $_POST['obrazok'];
+  
+  if(isset($_FILES['obrazok']) && $_FILES['obrazok']['error'] == 0){
+    $obrazok = $_FILES['obrazok']['name'];
+    $fileTmpPath = $_FILES['obrazok']['tmp_name'];
+    $dest_path = "img/" . $obrazok;
 
-  $product = new Crud($pdo);
-  $product->create($nazov, $popis, $cena, $obrazok);
+    if(move_uploaded_file($fileTmpPath, $dest_path)){
+      $product = new Crud($pdo);
+      $product->create($nazov, $popis, $cena, $dest_path);
 
-
-  header("Location: produkty.php");
-  exit;
+      header("Location: produkty.php");
+      exit;
+    } else {
+      echo "There was an error moving the uploaded file.";
+    }
+  } else {
+    echo "No file uploaded or there was an upload error.";
+  }
 }
+
 
 
 if (isset($_POST["edit"])) {
@@ -91,7 +102,7 @@ if(isset($_SESSION['role']) && ($_SESSION['role'] == 'Admin')) {
                 </button>
             </div>
             <div class="modal-body">
-              <form action="produkty.php" method="post">
+                <form action="produkty.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="nazov">Názov</label>
                   <input type="text" class="form-control" id="nazov" name="nazov" >

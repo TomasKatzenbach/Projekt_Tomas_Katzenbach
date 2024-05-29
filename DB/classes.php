@@ -110,15 +110,6 @@ class Crud {
             $stmt->execute();
         }
 
-        public function getById($id) {
-
-            $sql = "SELECT * FROM products WHERE ID = :id";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $product;
-        }
     }
 
     class Contact {
@@ -138,7 +129,7 @@ class Crud {
             $stmt->bindParam(':text', $text);
             $stmt->execute();
             header("Location: thankyou.php");
-            exit;
+            exit();
         }
     }
 
